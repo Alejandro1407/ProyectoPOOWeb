@@ -2,7 +2,6 @@
 <%@page import="java.sql.CallableStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="Datos.Conexion"%>
-<<<<<<< HEAD
 <%!
     public String getCookie(String cookieName, Cookie[] cookies){
         for(int i = 0;i < cookies.length;i++){
@@ -14,8 +13,6 @@
         return "Null";
     }
 %>
-=======
->>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
 <%
      //Para evitar el acceso no authorizado
      
@@ -30,17 +27,10 @@
         
          cookies = request.getCookies();
          
-<<<<<<< HEAD
          String idEmpleado = getCookie("idEmpleado", cookies);
          String NombreUser = getCookie("NombreUser", cookies);
          int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
          String NombreDepartamento = getCookie("NombreDepartamento", cookies);
-=======
-         String idEmpleado = (String) cookies[1].getValue();
-         String NombreUser = (String) cookies[2].getValue();
-         int idDepartamento = Integer.parseInt(cookies[3].getValue());
-         String NombreDepartamento = (String) cookies[4].getValue();  
->>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
          ResultSet Data;
          Connection conn = Conexion.Conectarse();
             if(conn == null){
@@ -87,27 +77,16 @@
         <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
       </a>
       <div class="list-group list-group-flush">
-<<<<<<< HEAD
         <a href="index.jsp" class="list-group-item  waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
         <a href="solicitudes.jsp" class="list-group-item list-group-item-action waves-effect">
-=======
-        <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-pie mr-3"></i>Dashboard
-        </a>
-        <a href="solicitudes.jsp" class="list-group-item active waves-effect">
->>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
           <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
         <a href="casos.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
            <a href="mostrarcasos.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>
-<<<<<<< HEAD
         <a href="reportes.jsp" class="list-group-item active waves-effect">
-=======
-        <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
->>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
           <i class="fas fa-chart-line mr-3"></i>Reportes</a>
           <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
@@ -122,11 +101,7 @@
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
         <sql:setDataSource var="dbsource" driver="com.mysql.jdbc.Driver"
-<<<<<<< HEAD
                            url="jdbc:mysql://localhost/SistemaPOO"
-=======
-                           url="jdbc:mysql://localhost/sistemapoo"
->>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
                            user="root"  password=""/>
  
         <sql:query dataSource="${dbsource}" var="result">
@@ -134,7 +109,6 @@
             <sql:param value="<%=idDepartamento%>" />
         </sql:query>
             <center> <h1> Reportes</h1>
-<<<<<<< HEAD
             <div class="container-fluid">
                 <div class="row wow fadeInUp">  
                 <c:forEach var="row" items="${result.rows}">
@@ -178,39 +152,6 @@
                 </c:forEach>
                 </div>
             </div>
-=======
-                <c:forEach var="row" items="${result.rows}">
-                    <div class="card text-white bg-primary mb-2" style="max-width: 18rem;">
-  <div class="card-header">CASOS</div>
-  <div class="card-body">
-    <h5 class="card-title">Totales</h5>
-    <p class="card-text"><h1><c:out value="${row.Totales}"/></h1></p>
-  </div>
-</div>
-<div class="card text-white bg-success mb-2" style="max-width: 18rem;">
-      <div class="card-header">CASOS</div>
-  <div class="card-body">
-    <h5 class="card-title">Desarrollo</h5>
-    <p class="card-text"><h1><c:out value="${row.Desarrollo}"/></h1></p>
-  </div>
-</div>
-<div class="card text-white bg-danger mb-2" style="max-width: 18rem; position: relative;">
-  <div class="card-header">CASOS</div>
-  <div class="card-body">
-    <h5 class="card-title">Rechazados</h5>
-    <p class="card-text"><h1><c:out value="${row.Rechazados}"/></h1></p>
-  </div>
-</div>
-<div class="card text-white bg-warning mb-2" style="max-width: 18rem;">
-  <div class="card-header">CASOS</div>
-  <div class="card-body">
-    <h5 class="card-title">Finalizados</h5>
-    <p class="card-text"><h1><c:out value="${row.Finalizados}"/></h1></p>
-  </div>
-</div>
-
-                </c:forEach>
->>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
     </div>
   </main>
   <!--Main layout-->

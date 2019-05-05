@@ -14,7 +14,7 @@
      
      HttpSession sesion = request.getSession();
      
-     if(sesion.getAttribute("JefeArea") == null){
+     if(sesion.getAttribute("Empleado") == null){
          response.sendRedirect("../index.jsp?Error=Debe iniciar sesion");
          return;
      }
@@ -26,10 +26,9 @@
          String idEmpleado = getCookie("idEmpleado", cookies);
          String NombreUser = getCookie("NombreUser", cookies);
          int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
-         String NombreDepartamento = getCookie("NombreDepartamento", cookies);
+         String NombreDepartamento = getCookie("NombreDepartamento", cookies);   
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -62,18 +61,15 @@
       <a class="logo-wrapper waves-effect">
         <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
       </a>
-          <div class="list-group list-group-flush">
+        <div class="list-group list-group-flush">
         <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
-        <a href="solicitudes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
-        <a href="casos.jsp" class="list-group-item active waves-effect">
-          <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
-           <a href="mostrarcasos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>
-        <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-line mr-3"></i>Reportes</a>
+        <a href="cambios.jsp" class="list-group-item active waves-effect">
+          <i class="fas fa-exchange-alt mr-3"></i>Cambios</a>
+          <br>
+          <a href="rechazar.jsp" class="list-group-item active waves-effect">
+          <i class="fas fa-exchange-alt mr-3"></i>Rechazar</a>
           <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
@@ -86,42 +82,55 @@
   <!--Main layout-->
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
-     <form action="insertdb.jsp" method="post" >
-            <table border="0" cellspacing="2" cellpadding="5">
-                <thead>
-                    <tr>
-                        <th colspan="2"><h2>Crear Solicitud</h2></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><label>Nombre</label></td>
-                        <td><input type="text" name="pname"/></td>
-                    </tr>
-                    <tr>
-                        <td><label>Descripcion</label></td>
-                        <td><textarea class="form-control rounded-0" rows="3" type="textarea" name="qty"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="Ingresar solicitud" /></td>
-                        <td><input type="reset" value="Limpiar"/></td>
+        <!--WorkArea-->
+        <div class="bg-white p-3 ">
+             <h4 class="grey-text pt-3">Purebas realizadas</h4>
+             <% if(request.getParameter("sucess") != null){%>
+                <p class="alert alert-success mb-0"><%=request.getParameter("sucess")%></p>
+             <% } %>
+             <div>
+                <%@page import="Datos.Conexion" %>
+                <%@page import="java.sql.*" %>
+                <%
+                   Connection conn = Conexion.Conectarse();
+                   if(conn == null){
+                       out.print("<p class='alert alert-danger'>Ocurrio un error</p>");
+                       return;
+                   }
+                    CallableStatement proc = conn.prepareCall("{call  mostrar_al_tester (?)}");
+                    proc.setInt(1,Integer.parseInt(idEmpleado));
+                    ResultSet tester = proc.executeQuery();
+                    if(!tester.next()){
+                        out.print("<p class='alert alert-danger'>No hay bitacoras que mostrar</p>");
+                    }   
+                    tester.beforeFirst();
+                    tester.next();
                         
-                    </tr>
-                    <tr>
-                        <td><label></label></td>
-                        <td><input  type="text" value="<%=idDepartamento%>" style="visibility:hidden" name="id"/></td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-                      <font color="red"><c:if test="${not empty param.errMsg}">
-            <c:out value="${param.errMsg}" />
-          
-        </c:if></font>
-        <font color="green"><c:if test="${not empty param.susMsg}">
-            <c:out value="${param.susMsg}" />
-    
-        </c:if></font>
+                %>
+                <form class="pl-5 pr-5 pt-3" action="rechazo.jsp" method="POST">
+                        <input type="hidden" value="<%=tester.getString(1)%>" name="id" >
+                        <div class="form-group">
+                        <label for="exampleInputPassword1">Nombre del caso:</label>
+                        <input  class="form-control" disabled value="<%=tester.getString(2)%>"></input>
+                      </div>
+                       <div class="form-group">
+                        <label for="exampleInputPassword1">Descripcion</label>
+                        <textarea  name="descripcion" class="form-control"><%=tester.getString(3)%></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Observaciones del tester</label>
+                        <textarea name="observacion" class="form-control"></textarea>
+                      </div>
+                        <%
+                            if(request.getParameter("Error") != null){
+                        %>
+                        <p class="alert alert-danger mb-0"><%= request.getParameter("Error") %></p>
+                        <%}%>
+                      <button type="submit" class="btn btn-danger"><i class="fas fa-times white-text mr-1"></i>Rechazar</button>
+                   </form>
+              </div>
+           </div>
+        <!--WorkArea-->
     </div>
   </main>
   <!--Main layout-->
@@ -136,4 +145,3 @@
         </script>
     </body>
 </html>
-
