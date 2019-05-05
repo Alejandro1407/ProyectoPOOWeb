@@ -2,6 +2,7 @@
 <%@page import="java.sql.CallableStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="Datos.Conexion"%>
+<<<<<<< HEAD
 <%!
     public String getCookie(String cookieName, Cookie[] cookies){
         for(int i = 0;i < cookies.length;i++){
@@ -13,6 +14,8 @@
         return "Null";
     }
 %>
+=======
+>>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
 <%
      //Para evitar el acceso no authorizado
      
@@ -27,6 +30,7 @@
         
          cookies = request.getCookies();
          
+<<<<<<< HEAD
          String idEmpleado = getCookie("idEmpleado", cookies);
          String NombreUser = getCookie("NombreUser", cookies);
          int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
@@ -43,6 +47,25 @@
                 String msg = "No hay solicitudes registradas";
            }
             Data.beforeFirst();
+=======
+         String idEmpleado = (String) cookies[1].getValue();
+         String NombreUser = (String) cookies[2].getValue();
+         int idDepartamento = Integer.parseInt(cookies[3].getValue());
+         String NombreDepartamento = (String) cookies[4].getValue();  
+         ResultSet Data;
+         Connection conn = Conexion.Conectarse();
+            if(conn == null){
+               throw new Exception("No se pudo Conectar");
+            }
+            CallableStatement proc = conn.prepareCall("{call mostrar_solicitudes (?)}");
+            proc.setInt(1, idDepartamento);
+            Data = proc.executeQuery();
+            if(!Data.next()){
+                String msg = "No hay solicitudes registradas";
+                return;
+           }
+            
+>>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
          
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -112,7 +135,11 @@
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
         <sql:setDataSource var="dbsource" driver="com.mysql.jdbc.Driver"
+<<<<<<< HEAD
                            url="jdbc:mysql://localhost/SistemaPOO"
+=======
+                           url="jdbc:mysql://localhost/sistemapoo"
+>>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
                            user="root"  password=""/>
  
         <sql:query dataSource="${dbsource}" var="result">
@@ -120,9 +147,12 @@
             <sql:param value="<%=idDepartamento%>" />
         </sql:query>
             <center> <h1> Lista de solicitudes</h1>
+<<<<<<< HEAD
                   <c:if test="${result.rowCount == 0 }">
                         <p class="alert alert-danger">No hay solicitudes</p>
                   </c:if>
+=======
+>>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
             <table class="table table-striped">
                 <thead class="thead-dark">
                 <tr>
@@ -137,7 +167,11 @@
                         <td><c:out value="${row.id}"/></td>
                         <td><c:out value="${row.nombre}"/></td>
                         <td><c:out value="${row.descripcion}"/></td>
+<<<<<<< HEAD
                   <td><a class="btn btn-danger" href="javascript:confirmGo('Esta seguro de querer eliminar la solicitud?','deletedb.jsp?id=<c:out value="${row.id}"/>')">Cancelar Solicitud</a></td>
+=======
+                  <td><a href="javascript:confirmGo('Esta seguro de querer eliminar la solicitud?','deletedb.jsp?id=<c:out value="${row.id}"/>')">Cancelar Solicitud</a></td>
+>>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
  
                     </tr>
                 </c:forEach>

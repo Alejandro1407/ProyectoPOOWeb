@@ -118,11 +118,11 @@
             <table border="0" cellspacing="2" cellpadding="5">
                 <tbody>
                     <tr>
-                        <td><label>Nombre</label></td>
+                        <td><label>Nombre *</label></td>
                         <td><input type="text" name="txtNombre"/></td>
                     </tr>
                     <tr>
-                        <td><label>Descripcion</label></td>
+                        <td><label>Descripcion *</label></td>
                         <td><textarea name='txtDescripcion'></textarea></td>
                     </tr>
                     <tr>

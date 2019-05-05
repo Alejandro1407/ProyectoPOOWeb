@@ -1,15 +1,4 @@
-<%!
-    public String getCookie(String cookieName, Cookie[] cookies){
-        for(int i = 0;i < cookies.length;i++){
-            Cookie cookie = cookies[i];
-                if(cookie.getName().equals(cookieName)){
-                    return cookie.getValue();
-                }
-        }
-        return "Null";
-    }
-%>
-<%
+ <%
      //Para evitar el acceso no authorizado
      
      HttpSession sesion = request.getSession();
@@ -23,11 +12,10 @@
         
          cookies = request.getCookies();
          
-         String idEmpleado = getCookie("idEmpleado", cookies);
-         String NombreUser = getCookie("NombreUser", cookies);
-         int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
-         String NombreDepartamento = getCookie("NombreDepartamento", cookies);
-%>     
+         String idEmpleado = (String) cookies[1].getValue();
+         String NombreUser = (String) cookies[2].getValue();
+         int idDepartamento = Integer.parseInt(cookies[3].getValue());
+         String NombreDepartamento = (String) cookies[4].getValue();     
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -74,6 +62,10 @@
                 width:100%;
                 position:absolute;
             }
+            
+            table{
+                border: 1px solid #009382;
+            }
             </style>
     </head>
   <body class="grey lighten-3">
@@ -95,63 +87,83 @@
           <i class="fas fa-briefcase mr-3"></i>Roles</a>
         <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-line mr-3"></i>Reportes</a>
-          <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
+          <a href="#" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
           <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
       </div>
 
-    </div>  
+    </div>
     <!-- Sidebar -->
 
   <!--Main layout-->
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
-        <!-- WorkArea -->
         <sql:setDataSource var="dbsource" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost/SistemaPOO"
                            user="root"  password=""/>
  
-        <sql:query dataSource="${dbsource}" var="result">
-            call mostrar_empleados;
+        <sql:query dataSource="${dbsource}" var="roles">
+            call mostrar_rol()
         </sql:query>
-            <h1 style="text-align: center">Empleados</h1>
-            <a href='addEmpleado.jsp'><i class="fas fa-plus"></i> Agregar empleado</a>
+        <sql:query dataSource="${dbsource}" var="deptos">
+            call mostrar_departamento()
+        </sql:query>
+        
+        <!-- WorkArea -->
+        <h1 style="text-align: center">Empleados</h1>
+        <h3 style="text-align: center; color:#009382;">Agregar empleado</h3>
         <center>
-            <table style="margin-top: 10px;" class="table table-striped table-bordered" id="deptotable" width="100%">
-                <thead class="thead-dark">
+        <form action="addEmpleadoDB.jsp" method="post">
+            <table border="0" cellspacing="2" cellpadding="5">
+                <tbody>
                     <tr>
-                        <th>Id Empleado</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Departamento</th>
-                        <th colspan="2"><center>Acciones</center></th>
+                        <td><label>Nombre *</label></td>
+                        <td><input type="text" name="txtNombre"/></td>
                     </tr>
-                </thead>
-                <c:forEach var="row" items="${result.rowsByIndex}">
                     <tr>
+                        <td><label>Apellido *</label></td>
+                        <td><input type="text" name="txtApellido"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Email *</label></td>
+                        <td><input type="email" name="txtEmail"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Rol *</label></td>
+                        <td>
+                            <select name="rol">
+                                <c:forEach var="data" items="${roles.rows}">
+                                    <option value="${data.id}">${data.rol}</option>
+                                </c:forEach>
+                            </select>
                         
-                        <td><c:out value="${row[0]}"/></td>
-                        <td><c:out value="${row[1]}"/></td>
-                        <td><c:out value="${row[2]}"/></td>
-                        <td><c:out value="${row[3]}"/></td>
-                        <td><c:out value="${row[5]}"/></td>
-                        <td><c:out value="${row[7]}"/></td>
-                        <td><a style='color:#009382; font-weight: bold' href="updEmpleado.jsp?id=<c:out value="${row[0]}"/>">Modificar</a></td>
-                        <td><a style='color:#f44336; font-weight: bold' href="delEmpleado.jsp?id=<c:out value="${row[0]}"/>">Borrar</a></td>
+                        </td>
                     </tr>
-                </c:forEach>
+                    <tr>
+                        <td><label>Departamento *</label></td>
+                        <td>
+                            <select name="depto">
+                                <c:forEach var="data" items="${deptos.rows}">
+                                    <option value="${data.id}">${data.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Agregar" /></td>
+                        <td><input type="reset" value="Limpiar"/></td>
+                    </tr>
+                </tbody>
             </table>
-            <font color="red"><c:if test="${not empty param.errMsg}">
-                <c:out value="${param.errMsg}" />
-                </c:if>
-            </font>
-            <font color="green"><c:if test="${not empty param.susMsg}">
-                <c:out value="${param.susMsg}" />
-                </c:if>
-            </font>
+        </form>
+        <a href="empleados.jsp">Ver todos los empleados</a>
+        <font color="red"><c:if test="${not empty param.errMsg}">
+            <c:out value="${param.errMsg}" />
+        </c:if></font>
+        <font color="green"><c:if test="${not empty param.susMsg}">
+            <c:out value="${param.susMsg}" />
+        </c:if></font>
         </center>
         
         

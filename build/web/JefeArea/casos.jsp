@@ -23,10 +23,19 @@
         
          cookies = request.getCookies();
          
+<<<<<<< HEAD
          String idEmpleado = getCookie("idEmpleado", cookies);
          String NombreUser = getCookie("NombreUser", cookies);
          int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
          String NombreDepartamento = getCookie("NombreDepartamento", cookies);
+=======
+         String idEmpleado = (String) cookies[1].getValue();
+         String NombreUser = (String) cookies[2].getValue();
+         int idDepartamento = Integer.parseInt(cookies[3].getValue());
+         String NombreDepartamento = (String) cookies[4].getValue(); 
+
+
+>>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -66,9 +75,15 @@
         <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
+<<<<<<< HEAD
         <a href="solicitudes.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
         <a href="casos.jsp" class="list-group-item active waves-effect">
+=======
+        <a href="solicitudes.jsp" class="list-group-item active waves-effect">
+          <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
+        <a href="casos.jsp" class="list-group-item list-group-item-action waves-effect">
+>>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
           <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
            <a href="mostrarcasos.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>

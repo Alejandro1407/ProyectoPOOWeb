@@ -62,10 +62,17 @@
         <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
       </a>
        <div class="list-group list-group-flush">
+<<<<<<< HEAD
         <a href="index.jsp" class="list-group-item active waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
         <a href="solicitudes.jsp" class="list-group-item list-group-item-action  waves-effect">
+=======
+        <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-chart-pie mr-3"></i>Dashboard
+        </a>
+        <a href="solicitudes.jsp" class="list-group-item active waves-effect">
+>>>>>>> ea1914a8eddf62562fd64f7b57546fa3339f9a34
           <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
         <a href="casos.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
