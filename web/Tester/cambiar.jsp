@@ -68,14 +68,8 @@
         <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
-        <a href="solicitudes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
-        <a href="casos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
-           <a href="mostrarcasos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>
-        <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-line mr-3"></i>Reportes</a>
+        <a href="cambios.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-exchange-alt mr-3"></i>Cambios</a>
           <a href="cambiar.jsp" class="list-group-item active waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
