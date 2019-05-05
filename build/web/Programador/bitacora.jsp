@@ -69,7 +69,80 @@
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
    <!--WorkArea-->
+    <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+            <div class="card">
+
+                <!-- Card header -->
+                <div class="card-header text-center">
+                    Actualizar Bitacora
+                </div>
+
+                <!--Card content-->
+                <div class="card-body">
+
+                    <a href="ActualizarBit.jsp" class="btn btn-success">Actualizar bitacora</a>
+
+                </div>
+
+            </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+    </div>
    
+            <div class="bg-white p-3 ">
+             <h4 class="grey-text pt-3">Actualizar Bitacora</h4>
+             
+             <div>
+                <%@page import="Datos.Conexion" %>
+                <%@page import="java.sql.*" %>
+                <%
+                   int id = Integer.parseInt(request.getParameter("id"));
+                   Connection conn = Conexion.Conectarse();
+                   if(conn == null){
+                       out.print("<p class='alert alert-danger'>Ocurrio un error</p>");
+                       return;
+                   }
+                    CallableStatement proc = conn.prepareCall("{call  mostrar_bitacoras (?)}");
+                    proc.setInt(1, idDepartamento);
+                    ResultSet bitacora = proc.executeQuery();
+                    bitacora.beforeFirst();
+                    while(bitacora.next()){
+                        if(bitacora.getInt(1) == id){
+                    
+                %>
+                <form class="pl-5 pr-5 pt-3" action="Actualizar.jsp" method="POST">
+                        <input type="hidden" value="<%=bitacora.getString(4)%>" name="id" >
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Descripcion</label>
+                        <textarea  class="form-control" disabled><%= bitacora.getString(2) %>
+                        </textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Porcentaje:</label>
+                        <input type="text" class="form-control" value="<%= bitacora.getString(3) %>" disabled>
+                        <small id="emailHelp" class="form-text text-muted"></small>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Observaciones</label>
+                        <textarea  class="form-control" disabled><%= bitacora.getString(5) %>
+                        </textarea>
+                      </div>
+                        <%
+                            if(request.getParameter("Error") != null){
+                        %>
+                        <p class="alert alert-danger mb-0"><%= request.getParameter("Error") %></p>
+                        <%}%>
+                      <button type="submit" class="btn btn-primary">Actualizar</button>
+                   </form>
+              </div>
+           </div>
    <!--WorkArea-->
     </div>
   </main>
