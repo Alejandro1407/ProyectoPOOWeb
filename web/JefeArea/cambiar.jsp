@@ -1,4 +1,15 @@
- <%
+<%!
+    public String getCookie(String cookieName, Cookie[] cookies){
+        for(int i = 0;i < cookies.length;i++){
+            Cookie cookie = cookies[i];
+                if(cookie.getName().equals(cookieName)){
+                    return cookie.getValue();
+                }
+        }
+        return "Null";
+    }
+%>
+<%
      //Para evitar el acceso no authorizado
      
      HttpSession sesion = request.getSession();
@@ -12,12 +23,10 @@
         
          cookies = request.getCookies();
          
-         String idEmpleado = (String) cookies[1].getValue();
-         String NombreUser = (String) cookies[2].getValue();
-         int idDepartamento = Integer.parseInt(cookies[3].getValue());
-         String NombreDepartamento = (String) cookies[4].getValue(); 
-
-
+         String idEmpleado = getCookie("idEmpleado", cookies);
+         String NombreUser = getCookie("NombreUser", cookies);
+         int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
+         String NombreDepartamento = getCookie("NombreDepartamento", cookies);
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -57,7 +66,7 @@
         <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
-        <a href="solicitudes.jsp" class="list-group-item active waves-effect">
+        <a href="solicitudes.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
         <a href="casos.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
@@ -65,7 +74,7 @@
           <i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>
         <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-line mr-3"></i>Reportes</a>
-          <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
+          <a href="cambiar.jsp" class="list-group-item active waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
           <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
@@ -97,7 +106,7 @@
                     </tr>
                     <tr>
                         <td><label></label></td>
-                        <td><input  type="text" value="<%=idDepartamento%>" style="visibility:hidden" name="id"/></td>
+                        <td><input  type="text" value="<%= idEmpleado %>" style="visibility:hidden" name="id"/></td>
                     </tr>
                 </tbody>
             </table>

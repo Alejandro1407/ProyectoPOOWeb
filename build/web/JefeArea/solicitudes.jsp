@@ -1,4 +1,19 @@
- <%
+ <%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.CallableStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="Datos.Conexion"%>
+<%!
+    public String getCookie(String cookieName, Cookie[] cookies){
+        for(int i = 0;i < cookies.length;i++){
+            Cookie cookie = cookies[i];
+                if(cookie.getName().equals(cookieName)){
+                    return cookie.getValue();
+                }
+        }
+        return "Null";
+    }
+%>
+<%
      //Para evitar el acceso no authorizado
      
      HttpSession sesion = request.getSession();
@@ -12,12 +27,28 @@
         
          cookies = request.getCookies();
          
-         String idEmpleado = (String) cookies[1].getValue();
-         String NombreUser = (String) cookies[2].getValue();
-         int idDepartamento = Integer.parseInt(cookies[3].getValue());
-         String NombreDepartamento = (String) cookies[4].getValue();     
+         String idEmpleado = getCookie("idEmpleado", cookies);
+         String NombreUser = getCookie("NombreUser", cookies);
+         int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
+         String NombreDepartamento = getCookie("NombreDepartamento", cookies);
+         ResultSet Data;
+         Connection conn = Conexion.Conectarse();
+            if(conn == null){
+               out.print("No se pudo Conectar");
+            }
+            CallableStatement proc = conn.prepareCall("{call mostrar_solicitudes (?)}");
+            proc.setInt(1, idDepartamento);
+           Data = proc.executeQuery();
+            if(!Data.next()){
+                String msg = "No hay solicitudes registradas";
+           }
+            Data.beforeFirst();
+         
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,12 +86,14 @@
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
         <a href="solicitudes.jsp" class="list-group-item active waves-effect">
-          <i class="fas fa-file-alt mr-3"></i>Solicitudes</a>
+          <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
         <a href="casos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-suitcase mr-3"></i>Casos</a>
+          <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
+           <a href="mostrarcasos.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>
         <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-line mr-3"></i>Reportes</a>
-          <a href="#" class="list-group-item list-group-item-action waves-effect">
+          <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
           <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
@@ -68,15 +101,50 @@
 
     </div>
     <!-- Sidebar -->
-
+<script>
+            function confirmGo(m,u) {
+                if ( confirm(m) ) {
+                    window.location = u;
+                }
+            }
+        </script>
   <!--Main layout-->
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
-        <!-- WorkArea -->
-
-        
-        
-        <!-- FinWorkArea-->
+        <sql:setDataSource var="dbsource" driver="com.mysql.jdbc.Driver"
+                           url="jdbc:mysql://localhost/SistemaPOO"
+                           user="root"  password=""/>
+ 
+        <sql:query dataSource="${dbsource}" var="result">
+            call mostrar_solicitudes(?)
+            <sql:param value="<%=idDepartamento%>" />
+        </sql:query>
+            <center> <h1> Lista de solicitudes</h1>
+                  <c:if test="${result.rowCount == 0 }">
+                        <p class="alert alert-danger">No hay solicitudes</p>
+                  </c:if>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Opcion</th>
+                </tr>
+                </thead>
+                <c:forEach var="row" items="${result.rows}">
+                    <tr>
+                        <td><c:out value="${row.id}"/></td>
+                        <td><c:out value="${row.nombre}"/></td>
+                        <td><c:out value="${row.descripcion}"/></td>
+                  <td><a class="btn btn-danger" href="javascript:confirmGo('Esta seguro de querer eliminar la solicitud?','deletedb.jsp?id=<c:out value="${row.id}"/>')">Cancelar Solicitud</a></td>
+ 
+                    </tr>
+                </c:forEach>
+            </table>
+     
+      
+    </center>
     </div>
   </main>
   <!--Main layout-->

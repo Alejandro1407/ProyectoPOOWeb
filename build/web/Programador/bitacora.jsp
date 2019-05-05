@@ -1,4 +1,15 @@
- <%
+<%!
+    public String getCookie(String cookieName, Cookie[] cookies){
+        for(int i = 0;i < cookies.length;i++){
+            Cookie cookie = cookies[i];
+                if(cookie.getName().equals(cookieName)){
+                    return cookie.getValue();
+                }
+        }
+        return "Null";
+    }
+%>
+<%
      //Para evitar el acceso no authorizado
      
      HttpSession sesion = request.getSession();
@@ -12,10 +23,10 @@
         
          cookies = request.getCookies();
          
-         String idEmpleado = (String) cookies[1].getValue();
-         String NombreUser = (String) cookies[2].getValue();
-         int idDepartamento = Integer.parseInt(cookies[3].getValue());
-         String NombreDepartamento = (String) cookies[4].getValue();     
+         String idEmpleado = getCookie("idEmpleado", cookies);
+         String NombreUser = getCookie("NombreUser", cookies);
+         int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
+         String NombreDepartamento = getCookie("NombreDepartamento", cookies);   
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -56,7 +67,7 @@
         </a>
         <a href="bitacora.jsp" class="list-group-item active  waves-effect">
           <i class="fas fa-book mr-3"></i>Bitacora</a>
-          <a href="#" class="list-group-item list-group-item-action waves-effect">
+          <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
           <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>

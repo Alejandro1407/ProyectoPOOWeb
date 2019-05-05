@@ -1,4 +1,15 @@
- <%
+<%!
+    public String getCookie(String cookieName, Cookie[] cookies){
+        for(int i = 0;i < cookies.length;i++){
+            Cookie cookie = cookies[i];
+                if(cookie.getName().equals(cookieName)){
+                    return cookie.getValue();
+                }
+        }
+        return "Null";
+    }
+%>
+<%
      //Para evitar el acceso no authorizado
      
      HttpSession sesion = request.getSession();
@@ -12,12 +23,13 @@
         
          cookies = request.getCookies();
          
-         String idEmpleado = (String) cookies[1].getValue();
-         String NombreUser = (String) cookies[2].getValue();
-         int idDepartamento = Integer.parseInt(cookies[3].getValue());
-         String NombreDepartamento = (String) cookies[4].getValue();     
+         String idEmpleado = getCookie("idEmpleado", cookies);
+         String NombreUser = getCookie("NombreUser", cookies);
+         int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
+         String NombreDepartamento = getCookie("NombreDepartamento", cookies);
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,12 +67,14 @@
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
         <a href="solicitudes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-file-alt mr-3"></i>Solicitudes</a>
+          <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
         <a href="casos.jsp" class="list-group-item active waves-effect">
-          <i class="fas fa-suitcase mr-3"></i>Casos</a>
+          <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
+           <a href="mostrarcasos.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>
         <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-line mr-3"></i>Reportes</a>
-          <a href="#" class="list-group-item list-group-item-action waves-effect">
+          <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
           <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
@@ -72,11 +86,42 @@
   <!--Main layout-->
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
-        <!-- WorkArea -->
-
-        
-        
-        <!-- FinWorkArea-->
+     <form action="insertdb.jsp" method="post" >
+            <table border="0" cellspacing="2" cellpadding="5">
+                <thead>
+                    <tr>
+                        <th colspan="2"><h2>Crear Solicitud</h2></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><label>Nombre</label></td>
+                        <td><input type="text" name="pname"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Descripcion</label></td>
+                        <td><textarea class="form-control rounded-0" rows="3" type="textarea" name="qty"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Ingresar solicitud" /></td>
+                        <td><input type="reset" value="Limpiar"/></td>
+                        
+                    </tr>
+                    <tr>
+                        <td><label></label></td>
+                        <td><input  type="text" value="<%=idDepartamento%>" style="visibility:hidden" name="id"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+                      <font color="red"><c:if test="${not empty param.errMsg}">
+            <c:out value="${param.errMsg}" />
+          
+        </c:if></font>
+        <font color="green"><c:if test="${not empty param.susMsg}">
+            <c:out value="${param.susMsg}" />
+    
+        </c:if></font>
     </div>
   </main>
   <!--Main layout-->

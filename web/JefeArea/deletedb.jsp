@@ -16,7 +16,7 @@
     </head>
     <body>
         <sql:setDataSource var="dbsource" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://localhost/sistemapoo"
+                           url="jdbc:mysql://localhost/SistemaPOO"
                            user="root"  password=""/>
         <sql:update dataSource="${dbsource}" var="count">
             call cancelar_soli(?)
