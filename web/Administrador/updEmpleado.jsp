@@ -25,7 +25,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Empleados</title>
+        <title>Departamentos</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link href="../css/mdb.css" rel="stylesheet">
@@ -62,6 +62,10 @@
                 width:100%;
                 position:absolute;
             }
+            
+            table{
+                border: 1px solid #009382;
+            }
             </style>
     </head>
   <body class="grey lighten-3">
@@ -89,57 +93,88 @@
           <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
       </div>
 
-    </div>  
+    </div>
     <!-- Sidebar -->
 
   <!--Main layout-->
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
         <!-- WorkArea -->
+        <h1 style="text-align: center">Empleados</h1>
+        <h3 style="text-align: center; color:#009382;">Modificar empleado</h3>
+        <center>
         <sql:setDataSource var="dbsource" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost/SistemaPOO"
                            user="root"  password=""/>
  
-        <sql:query dataSource="${dbsource}" var="result">
-            call mostrar_empleados;
+ 
+        <sql:query dataSource="${dbsource}" var="empleado">
+            SELECT e.id,e.nombre,e.apellidos,e.email,r.id,r.rol,d.id,d.Nombre 
+            FROM empleado e INNER JOIN rol r ON e.idRol = r.id 
+            INNER JOIN departamento d ON e.idDepartamento = d.id
+            where e.id = ${param.id}
         </sql:query>
-            <h1 style="text-align: center">Empleados</h1>
-            <a href='addEmpleado.jsp'><i class="fas fa-plus"></i> Agregar empleado</a>
-        <center>
-            <table style="margin-top: 10px;" class="table table-striped table-bordered" id="deptotable" width="100%">
-                <thead class="thead-dark">
+        <sql:query dataSource="${dbsource}" var="roles">
+            call mostrar_rol()
+        </sql:query>
+        <sql:query dataSource="${dbsource}" var="deptos">
+            call mostrar_departamento()
+        </sql:query>
+        
+        <form action="updEmpleadoDB.jsp" method="post">
+            <table border="0" cellspacing="2" cellpadding="5">
+                <c:forEach var="row" items="${empleado.rowsByIndex}">
+                <tbody>
                     <tr>
-                        <th>Id Empleado</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Departamento</th>
-                        <th colspan="2"><center>Acciones</center></th>
+                        <td><label>Nombre *</label></td>
+                        <td><input type="hidden" name="txtId" value="${row[0]}"/><input type="text" name="txtNombre" value="${row[1]}"/></td>
                     </tr>
-                </thead>
-                <c:forEach var="row" items="${result.rowsByIndex}">
                     <tr>
+                        <td><label>Apellido *</label></td>
+                        <td><input type="text" name='txtApellido' value="${row[2]}"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><label>Email *</label></td>
+                        <td><input type="email" name="txtEmail" value="${row[3]}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Rol *</label></td>
+                        <td>
+                            <select name="rol">
+                                <option value="${row[4]}">${row[5]}</option>
+                                <c:forEach var="data" items="${roles.rows}">
+                                    <option value="${data.id}">${data.rol}</option>
+                                </c:forEach>
+                            </select>
                         
-                        <td><c:out value="${row[0]}"/></td>
-                        <td><c:out value="${row[1]}"/></td>
-                        <td><c:out value="${row[2]}"/></td>
-                        <td><c:out value="${row[3]}"/></td>
-                        <td><c:out value="${row[5]}"/></td>
-                        <td><c:out value="${row[7]}"/></td>
-                        <td><a style='color:#009382; font-weight: bold' href="updEmpleado.jsp?id=<c:out value="${row[0]}"/>">Modificar</a></td>
-                        <td><a style='color:#f44336; font-weight: bold' href="delEmpleado.jsp?id=<c:out value="${row[0]}"/>">Borrar</a></td>
+                        </td>
                     </tr>
+                    <tr>
+                        <td><label>Departamento *</label></td>
+                        <td>
+                            <select name="depto">
+                                <option value="${row[6]}">${row[7]}</option>
+                                <c:forEach var="data" items="${deptos.rows}">
+                                    <option value="${data.id}">${data.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Modificar" /></td>
+                        <td><input type="reset" value="Limpiar"/></td>
+                    </tr>
+                </tbody>
                 </c:forEach>
             </table>
-            <font color="red"><c:if test="${not empty param.errMsg}">
-                <c:out value="${param.errMsg}" />
-                </c:if>
-            </font>
-            <font color="green"><c:if test="${not empty param.susMsg}">
-                <c:out value="${param.susMsg}" />
-                </c:if>
-            </font>
+        </form>
+        <a href="empleados.jsp">Ver todos los empleados</a>
+        <font color="red"><c:if test="${not empty param.errMsg}">
+            <c:out value="${param.errMsg}" />
+        </c:if></font>
+        <font color="green"><c:if test="${not empty param.susMsg}">
+            <c:out value="${param.susMsg}" />
+        </c:if></font>
         </center>
         
         

@@ -50,14 +50,16 @@
       <a class="logo-wrapper waves-effect">
         <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
       </a>
-        <div class="list-group list-group-flush">
-        <a href="index.jsp" class="list-group-item active  waves-effect">
+       <div class="list-group list-group-flush">
+        <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
-        <a href="solicitudes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-file-alt mr-3"></i>Solicitudes</a>
+        <a href="solicitudes.jsp" class="list-group-item active waves-effect">
+          <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
         <a href="casos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-suitcase mr-3"></i>Casos</a>
+          <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
+           <a href="mostrarcasos.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>
         <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-line mr-3"></i>Reportes</a>
           <a href="#" class="list-group-item list-group-item-action waves-effect">
