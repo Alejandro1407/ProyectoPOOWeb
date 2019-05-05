@@ -120,7 +120,7 @@
                         <td><c:out value="${row.codigo}"/></td>
                         <td><c:out value="${row.nombre}"/></td>
                         <td><c:out value="${row.descripcion}"/></td>
-                        <td><a style='color:#009382; font-weight: bold' href="update.jsp?id=<c:out value="${row.id}"/>">Modificar</a></td>
+                        <td><a style='color:#009382; font-weight: bold' href="updDepartamento.jsp?id=<c:out value="${row.id}"/>">Modificar</a></td>
                         <td><a style='color:#f44336; font-weight: bold' href="delDepartamento.jsp?id=<c:out value="${row.id}"/>">Borrar</a></td>
                     </tr>
                 </c:forEach>

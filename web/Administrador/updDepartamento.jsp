@@ -101,24 +101,36 @@
     <div class="container-fluid">
         <!-- WorkArea -->
         <h1 style="text-align: center">Departamentos</h1>
-        <h3 style="text-align: center; color:#009382;">Agregar departamento</h3>
+        <h3 style="text-align: center; color:#009382;">Modificar departamento</h3>
         <center>
-        <form action="addDepartamentoDB.jsp" method="post">
+        <sql:setDataSource var="dbsource" driver="com.mysql.jdbc.Driver"
+                           url="jdbc:mysql://localhost/SistemaPOO"
+                           user="root"  password=""/>
+ 
+        <sql:query dataSource="${dbsource}" var="result">
+            SELECT * from departamento where id=?;
+            <sql:param value="${param.id}" />
+        </sql:query>
+        <form action="updDepartamentoDB.jsp" method="post">
             <table border="0" cellspacing="2" cellpadding="5">
-                <tbody>
+                <c:forEach var="row" items="${result.rows}">
+                    <tbody>
                     <tr>
                         <td><label>Nombre</label></td>
-                        <td><input type="text" name="txtNombre"/></td>
+                        <td><input type="hidden" value="${param.id}" name="txtId"/>
+                            <input type="text" value="${row.nombre}" name="txtNombre"/></td>
+                        </td>
                     </tr>
                     <tr>
                         <td><label>Descripcion</label></td>
-                        <td><textarea name='txtDescripcion'></textarea></td>
+                        <td><textarea name='txtDescripcion'> ${row.descripcion} </textarea></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Agregar" /></td>
+                        <td><input type="submit" value="Actualizar" /></td>
                         <td><input type="reset" value="Limpiar"/></td>
                     </tr>
                 </tbody>
+                </c:forEach>
             </table>
         </form>
         <a href="departamentos.jsp">Ver todos los departamentos</a>

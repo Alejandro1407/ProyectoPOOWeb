@@ -10,7 +10,7 @@
  
 <html>
     <head>
-        <title>JINSERT Operation</title>
+        <title>Update Operation</title>
     </head>
     <body>
         <c:if test="${ empty param.txtNombre}">
@@ -30,28 +30,25 @@
                            user="root"  password=""/>
  
         <sql:query dataSource="${dbsource}" var="cnt">
-            select * from departamento where nombre = ?
+            select * from departamento where nombre = ? and id != ?
             <sql:param value="${param.txtNombre}"/>
+            <sql:param value="${param.txtId}"/>
         </sql:query>
             <c:if test="${cnt.rowCount >= 1}">
-                <c:redirect url="addDepartamento.jsp" >
+                <c:redirect url="updDepartamento.jsp" >
                     <c:param name="errMsg" value="El departamento ya existe" />
                 </c:redirect>
             </c:if>
-        <sql:update dataSource="${dbsource}" var="result">
-            call insertar_departamento (?,?);
+        <sql:update dataSource="${dbsource}" var="count">
+            call actualizar_departamento(?,?,?)
+            <sql:param value="${param.txtId}" />
             <sql:param value="${param.txtNombre}" />
             <sql:param value="${param.txtDescripcion}" />
         </sql:update>
-        <c:if test="${not empty result}">
-            <font size="5" color='green'> 
-                <c:out value="${result}"/> 
-            </font>
- 
-            <c:redirect url="addDepartamento.jsp" >
-                <c:param name="susMsg" value="El departamento se ingreso exitosamente" />
-            </c:redirect>
-        </c:if> 
+        
+        <c:redirect url="departamentos.jsp" >
+            <c:param name="susMsg" value="El departamento se modifico exitosamente" />
+        </c:redirect>
  
  
     </body>
