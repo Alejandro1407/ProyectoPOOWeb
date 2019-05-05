@@ -56,7 +56,7 @@
         </a>
         <a href="departamentos.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-building mr-3"></i>Departamentos</a>
-        <a href="empleados.jsp" class="list-group-item active  waves-effect">
+        <a href="empleados.jsp" class="list-group-item active waves-effect">
           <i class="fas fa-users mr-3"></i>Empleados</a>
         <a href="roles.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-briefcase mr-3"></i>Roles</a>

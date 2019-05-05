@@ -62,6 +62,10 @@
                 width:100%;
                 position:absolute;
             }
+            
+            table{
+                border: 1px solid #009382;
+            }
             </style>
     </head>
   <body class="grey lighten-3">
@@ -96,43 +100,34 @@
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
         <!-- WorkArea -->
-        <sql:setDataSource var="dbsource" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://localhost/SistemaPOO"
-                           user="root"  password=""/>
- 
-        <sql:query dataSource="${dbsource}" var="result">
-            select * from departamento;
-        </sql:query>
-            <h1 style="text-align: center">Departamentos</h1>
-            <a href='addDepartamento.jsp'><i class="fas fa-plus"></i> Agregar departamento</a>
+        <h1 style="text-align: center">Departamentos</h1>
+        <h3 style="text-align: center; color:#009382;">Agregar departamento</h3>
         <center>
-            <table style="margin-top: 10px;" class="table table-striped table-bordered" id="deptotable" width="100%">
-                <thead class="thead-dark">
+        <form action="addDepartamentoDB.jsp" method="post">
+            <table border="0" cellspacing="2" cellpadding="5">
+                <tbody>
                     <tr>
-                        <th>Codigo</th>
-                        <th>Dpto. Nombre</th>
-                        <th>Dpto. Descripcion</th>
-                        <th colspan="2"><center>Acciones</center></th>
+                        <td><label>Nombre</label></td>
+                        <td><input type="text" name="txtNombre"/></td>
                     </tr>
-                </thead>
-                <c:forEach var="row" items="${result.rows}">
                     <tr>
-                        <td><c:out value="${row.codigo}"/></td>
-                        <td><c:out value="${row.nombre}"/></td>
-                        <td><c:out value="${row.descripcion}"/></td>
-                        <td><a style='color:#009382; font-weight: bold' href="update.jsp?id=<c:out value="${row.id}"/>">Modificar</a></td>
-                        <td><a style='color:#f44336; font-weight: bold' href="delDepartamento.jsp?id=<c:out value="${row.id}"/>">Borrar</a></td>
+                        <td><label>Descripcion</label></td>
+                        <td><textarea name='txtDescripcion'></textarea></td>
                     </tr>
-                </c:forEach>
+                    <tr>
+                        <td><input type="submit" value="Agregar" /></td>
+                        <td><input type="reset" value="Limpiar"/></td>
+                    </tr>
+                </tbody>
             </table>
-            <font color="red"><c:if test="${not empty param.errMsg}">
-                <c:out value="${param.errMsg}" />
-                </c:if>
-            </font>
-            <font color="green"><c:if test="${not empty param.susMsg}">
-                <c:out value="${param.susMsg}" />
-                </c:if>
-            </font>
+        </form>
+            <a href="departamentos.jsp">Ver todos los departamentos</a>
+        <font color="red"><c:if test="${not empty param.errMsg}">
+            <c:out value="${param.errMsg}" />
+        </c:if></font>
+        <font color="green"><c:if test="${not empty param.susMsg}">
+            <c:out value="${param.susMsg}" />
+        </c:if></font>
         </center>
         
         
