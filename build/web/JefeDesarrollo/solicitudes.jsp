@@ -71,9 +71,52 @@
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
         <!-- WorkArea -->
-
-        
-        
+         <div class="bg-white p-3 ">
+             <h4 class="grey-text mb-3">Solicitudes</h4>
+             <%
+                 if(request.getParameter("sucess") != null){
+             %>
+                <p class="alert alert-warning"><%= request.getParameter("sucess")%></p>
+             <% } %>
+             <div>
+                <%@page import="Datos.Conexion" %>
+                <%@page import="java.sql.*" %>
+                <%
+                   Connection conn = Conexion.Conectarse();
+                   if(conn == null){
+                       out.print("<p class='alert alert-danger'>Ocurrio un error</p>");
+                       return;
+                   }
+                    CallableStatement proc = conn.prepareCall("{call mostrar_solicitudes (?)}");
+                    proc.setInt(1, idDepartamento);
+                    ResultSet solicitudes = proc.executeQuery();
+                    if(!solicitudes.next()){
+                        out.println("<p class='alert alert-success'>No hay solicitudes pendientes de aprobacion </p>");
+                        return;
+                    }
+                    solicitudes.beforeFirst();
+                %>
+                
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <% while(solicitudes.next()) { %>
+                    <tr>
+                        <td> <%= solicitudes.getString(2) %></td>
+                        <td> <%= solicitudes.getString(3) %></td>
+                        <td> 
+                            <a href="aceptarsolicitud.jsp?id=<%= solicitudes.getString(1)%>" class="btn btn-success"><i class="fas fa-check white-text mr-1"></i>Aceptar</a>
+                            <a href="rechazarsolicitud.jsp?id<%= solicitudes.getString(1)%>" class="btn btn-danger"><i class="fas fa-times white-text mr-1"></i>Rechazar</a>
+                        </td>
+                    </tr>
+                    <% } %>
+                 </table>
+              </div>
+           </div>
+           
         <!-- FinWorkArea-->
     </div>
   </main>
