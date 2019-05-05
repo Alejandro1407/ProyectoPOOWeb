@@ -3,7 +3,7 @@
      
      HttpSession sesion = request.getSession();
      
-     if(sesion.getAttribute("JefeArea") == null){
+     if(sesion.getAttribute("JefeDesarrollo") == null){
          response.sendRedirect("../index.jsp?Error=Debe iniciar sesion");
          return;
      }
@@ -50,16 +50,14 @@
       <a class="logo-wrapper waves-effect">
         <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
       </a>
-        <div class="list-group list-group-flush">
-        <a href="index.jsp" class="list-group-item active  waves-effect">
+          <div class="list-group list-group-flush">
+        <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
         <a href="solicitudes.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-file-alt mr-3"></i>Solicitudes</a>
-        <a href="casos.jsp" class="list-group-item list-group-item-action waves-effect">
+        <a href="casos.jsp" class="list-group-item active waves-effect">
           <i class="fas fa-suitcase mr-3"></i>Casos</a>
-        <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-line mr-3"></i>Reportes</a>
           <a href="#" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
@@ -72,33 +70,11 @@
   <!--Main layout-->
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
+        <!-- WorkArea -->
 
-
-      <!--Grid row-->
-      <div class="row wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-lg-6 col-md-6 mb-4">
-
-          <!--Card-->
-          <div class="card">
-
-            <!-- Card header -->
-            <div class="card-header">Usuarios</div>
-
-            <!--Card content-->
-            <div class="card-body">
-
-              <canvas id="lineChart"></canvas>
-
-            </div>
-
-          </div>
-          <!--/.Card-->
-
-        </div>
-        <!--Grid column-->
         
+        
+        <!-- FinWorkArea-->
     </div>
   </main>
   <!--Main layout-->

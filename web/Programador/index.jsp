@@ -2,7 +2,8 @@
      //Para evitar el acceso no authorizado
      
      HttpSession sesion = request.getSession();
-     if(sesion.getAttribute("Administrador").equals(null)){
+     
+     if(sesion.getAttribute("Programador") == null){
          response.sendRedirect("../index.jsp?Error=Debe iniciar sesion");
          return;
      }
@@ -26,17 +27,86 @@
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link href="../css/mdb.css" rel="stylesheet">
         <link href="../css/style.css" rel="stylesheet">
+        <style>
+            .map-container{
+                overflow:hidden;
+                padding-bottom:56.25%;
+                position:relative;
+                height:0;
+            }
+            .map-container iframe{
+                left:0;
+                top:0;
+                height:100%;
+                width:100%;
+                position:absolute;
+            }
+            </style>
     </head>
-    <body>
+  <body class="grey lighten-3">
+    <!-- Sidebar -->
+    <div class="sidebar-fixed position-fixed">
+
+      <a class="logo-wrapper waves-effect">
+        <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
+      </a>
+        <div class="list-group list-group-flush">
+        <a href="index.jsp" class="list-group-item active waves-effect">
+          <i class="fas fa-chart-pie mr-3"></i>Dashboard
+        </a>
+        <a href="bitacora.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-book mr-3"></i>Bitacora</a>
+          <a href="#" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
+           <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
+          <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
+      </div>
+
+    </div>
+    <!-- Sidebar -->
+
+  <!--Main layout-->
+  <main class="pt-5 mx-lg-5">
+    <div class="container-fluid">
+
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header">Usuarios</div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <canvas id="lineChart"></canvas>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
         
-        
-        <!-- SCRIPTS -->
-        <script type="text/javascript" src="../js/jquery-3.4.0.min.js"></script>
-        <script type="text/javascript" src="../js/popper.min.js"></script>
-        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../js/mdb.min.js"></script>
+    </div>
+  </main>
+  <!--Main layout-->
+
+                    <!-- SCRIPTS -->
+        <script type="text/javascript" src="../js/jquery.js"></script>
+        <script type="text/javascript" src="../js/popper.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.js"></script>
+        <script type="text/javascript" src="../js/mdb.js"></script>
         <script type="text/javascript">
               new WOW().init();
         </script>
     </body>
 </html>
+
