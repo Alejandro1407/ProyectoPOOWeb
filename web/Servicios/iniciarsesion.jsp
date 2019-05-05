@@ -57,7 +57,7 @@
            }
             if(rs.getString(3).equals("Empleado")){
                 sesion.setAttribute("Empleado", rs.getString(2));
-                response.sendRedirect("../Empleados/index.jsp");
+                response.sendRedirect("../Tester/index.jsp");
                 return;
             }
             if(rs.getString(3).equals("Programador")){

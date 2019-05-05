@@ -80,70 +80,48 @@
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
    <!--WorkArea-->
-    <div class="row wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-lg-6 col-md-6 mb-4">
-
-          <!--Card-->
-            <div class="card">
-
-                <!-- Card header -->
-                <div class="card-header text-center">
-                    Actualizar Bitacora
-                </div>
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <a href="ActualizarBit.jsp" class="btn btn-success">Actualizar bitacora</a>
-
-                </div>
-
-            </div>
-          <!--/.Card-->
-
-        </div>
-        <!--Grid column-->
-    </div>
-   
             <div class="bg-white p-3 ">
              <h4 class="grey-text pt-3">Actualizar Bitacora</h4>
-             
+             <% if(request.getParameter("sucess") != null){%>
+                <p class="alert alert-success mb-0"><%=request.getParameter("sucess")%></p>
+             <% } %>
              <div>
                 <%@page import="Datos.Conexion" %>
                 <%@page import="java.sql.*" %>
                 <%
-                   int id = Integer.parseInt(request.getParameter("id"));
                    Connection conn = Conexion.Conectarse();
                    if(conn == null){
                        out.print("<p class='alert alert-danger'>Ocurrio un error</p>");
                        return;
                    }
                     CallableStatement proc = conn.prepareCall("{call  mostrar_bitacoras (?)}");
-                    proc.setInt(1, idDepartamento);
+                    proc.setInt(1,Integer.parseInt(idEmpleado));
                     ResultSet bitacora = proc.executeQuery();
+                    if(!bitacora.next()){
+                        out.print("<p class='alert alert-danger'>No hay bitacoras que mostrar</p>");
+                    }   
                     bitacora.beforeFirst();
-                    while(bitacora.next()){
-                        if(bitacora.getInt(1) == id){
-                    
+                    bitacora.next();
+                        
                 %>
-                <form class="pl-5 pr-5 pt-3" action="Actualizar.jsp" method="POST">
-                        <input type="hidden" value="<%=bitacora.getString(4)%>" name="id" >
+                <form class="pl-5 pr-5 pt-3" action="actualizar.jsp" method="POST">
+                        <input type="hidden" value="<%=bitacora.getString(1)%>" name="id" >
+                        <div class="form-group">
+                        <label for="exampleInputPassword1">Nombre del caso:</label>
+                        <input  class="form-control" disabled value="<%=bitacora.getString(4)%>"></input>
+                      </div>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">Descripcion</label>
-                        <textarea  class="form-control" disabled><%= bitacora.getString(2) %>
-                        </textarea>
+                        <label for="exampleInputPassword1">Avances</label>
+                        <textarea name="avances" class="form-control"><%=bitacora.getString(2)%></textarea>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Porcentaje:</label>
-                        <input type="text" class="form-control" value="<%= bitacora.getString(3) %>" disabled>
+                        <input type="number" min="0" max="100" step="1" name="porcentaje" class="form-control" value="<%= bitacora.getString(3) %>">
                         <small id="emailHelp" class="form-text text-muted"></small>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">Observaciones</label>
-                        <textarea  class="form-control" disabled><%= bitacora.getString(5) %>
-                        </textarea>
+                        <label for="exampleInputPassword1">Observaciones del tester:</label>
+                        <textarea  class="form-control" disabled><% if (bitacora.getString(5) == null) {out.print("Ninguna");}%></textarea>
                       </div>
                         <%
                             if(request.getParameter("Error") != null){
