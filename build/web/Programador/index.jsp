@@ -80,7 +80,8 @@
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
 
-
+        <h1 class="text-center">Bienvenido programador</h1>
+        <br>
       <!--Grid row-->
       <div class="row wow fadeIn">
 
@@ -91,12 +92,12 @@
           <div class="card">
 
             <!-- Card header -->
-            <div class="card-header">Usuarios</div>
+            <div class="card-header text-center">Actualizar bitacora</div>
 
             <!--Card content-->
-            <div class="card-body">
+            <div class="card-body text-center">
 
-              <canvas id="lineChart"></canvas>
+                <a href="bitacora.jsp" class="btn btn-cyan"><i class="fas fa-book mr-3"></i>Actualizar Bitacora</a>
 
             </div>
 
@@ -106,7 +107,28 @@
         </div>
         <!--Grid column-->
         
+                <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header text-center">Cambiar contraseña</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="cambiar.jsp" class="btn btn-dark-green"><i class="fas fa-lock mr-3"></i>Cambiar contraseña</a>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        
     </div>
+      
   </main>
   <!--Main layout-->
 

@@ -88,6 +88,8 @@
 
 
       <!--Grid row-->
+      <h1 class="text-center">Bienvenido Jefe de Area</h1>
+        <br>
       <div class="row wow fadeIn">
 
         <!--Grid column-->
@@ -102,12 +104,104 @@
           </div>
         </div>
                         
-        <div class="col-lg-6 col-md-6 mb-4">
+<div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
           <div class="card">
-           
+
+            <!-- Card header -->
+            <div class="card-header text-center">Mostrar Solicitudes</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="solicitudes.jsp" class="btn btn-black"><i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
+
+            </div>
 
           </div>
+          <!--/.Card-->
+
         </div>
+        <!--Grid column-->
+        
+        <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header text-center">Crear Solicitudes</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="casos.jsp" class="btn btn-cyan"><i class="fas fa-suitcase mr-3"></i>Crear Solicitudes</a>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        
+        <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header text-center">Mostrar Casos</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="mostrarcasos.jsp" class="btn btn-light-green"><i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        
+        <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header text-center">Reportes</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="reportes.jsp" class="btn btn-lime"><i class="fas fa-chart-line mr-3"></i>Reportes</a>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        
+        <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header text-center">Cambiar contraseña</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="cambiar.jsp" class="btn btn-orange"><i class="fas fa-lock mr-3"></i>Cambiar contraseña</a>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
         <!--Grid column-->
         
     </div>

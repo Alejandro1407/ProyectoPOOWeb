@@ -83,6 +83,9 @@
     <div class="container-fluid">
 
 
+            <!--Grid row-->
+<h1 class="text-center">Bienvenido Jefe de Desarrollo</h1>
+        <br>
       <!--Grid row-->
       <div class="row wow fadeIn">
 
@@ -93,12 +96,12 @@
           <div class="card">
 
             <!-- Card header -->
-            <div class="card-header">Usuarios</div>
+            <div class="card-header text-center">Solicitudes</div>
 
             <!--Card content-->
-            <div class="card-body">
+            <div class="card-body text-center">
 
-              <canvas id="lineChart"></canvas>
+                <a href="solicitudes.jsp" class="btn btn-yellow"><i class="fas fa-file-alt mr-3"></i>Solicitudes</a>
 
             </div>
 
@@ -108,6 +111,44 @@
         </div>
         <!--Grid column-->
         
+        <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header text-center">Casos</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="casos.jsp" class="btn btn-blue"><i class="fas fa-suitcase mr-3"></i>Casos</a>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+                <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header text-center">Cambiar contraseña</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="cambiar.jsp" class="btn btn-orange"><i class="fas fa-lock mr-3"></i>Cambiar contraseña</a>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
     </div>
   </main>
   <!--Main layout-->

@@ -1,4 +1,4 @@
-<%!
+    <%!
     public String getCookie(String cookieName, Cookie[] cookies){
         for(int i = 0;i < cookies.length;i++){
             Cookie cookie = cookies[i];
@@ -66,7 +66,10 @@
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
         <a href="cambios.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-exchange-alt mr-3"></i>Cambios</a>
+          <i class="fas fa-exchange-alt mr-3"></i>Aceptar</a>
+         <br>
+          <a href="rechazar.jsp" class="list-group-item active waves-effect">
+          <i class="fas fa-exchange-alt mr-3"></i>Rechazar</a>
           <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
@@ -82,6 +85,9 @@
 
 
       <!--Grid row-->
+<h1 class="text-center">Bienvenido tester</h1>
+        <br>
+      <!--Grid row-->
       <div class="row wow fadeIn">
 
         <!--Grid column-->
@@ -91,12 +97,12 @@
           <div class="card">
 
             <!-- Card header -->
-            <div class="card-header">Usuarios</div>
+            <div class="card-header text-center">Aceptar sistema</div>
 
             <!--Card content-->
-            <div class="card-body">
+            <div class="card-body text-center">
 
-              <canvas id="lineChart"></canvas>
+                <a href="cambios.jsp" class="btn btn-success"><i class="fas fa-exchange-alt mr-3"></i>Aceptar sistema</a>
 
             </div>
 
@@ -106,6 +112,44 @@
         </div>
         <!--Grid column-->
         
+        <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header text-center">Rechazar sistema</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="rechazar.jsp" class="btn btn-danger"><i class="fas fa-exchange-alt mr-3"></i>Rechazar sistema</a>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+                <div class="col-lg-6 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header text-center">Cambiar contraseña</div>
+
+            <!--Card content-->
+            <div class="card-body text-center">
+
+                <a href="cambiar.jsp" class="btn btn-orange"><i class="fas fa-lock mr-3"></i>Cambiar contraseña</a>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
     </div>
   </main>
   <!--Main layout-->

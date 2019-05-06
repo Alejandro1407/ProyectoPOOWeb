@@ -66,7 +66,7 @@
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
         <a href="cambios.jsp" class="list-group-item active waves-effect">
-          <i class="fas fa-exchange-alt mr-3"></i>Cambios</a>
+          <i class="fas fa-exchange-alt mr-3"></i>Aceptar</a>
           <br>
           <a href="rechazar.jsp" class="list-group-item active waves-effect">
           <i class="fas fa-exchange-alt mr-3"></i>Rechazar</a>
