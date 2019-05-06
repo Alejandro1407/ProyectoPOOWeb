@@ -67,3 +67,56 @@ body,
   .sidebar-fixed {
     display: none; } }
 
+
+.bg-white2{
+    background-color:#E8ECF8; 
+}
+body{
+    height: 100%;
+    width: 100%;
+}
+.panel{
+    padding-left: 20%;
+    padding-right: 15%;
+    min-height: 325px;
+}
+#theDiv{
+    background-image: url("../img/Nosotros.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    height: 225px;
+}
+#Titulo{
+    text-align: center;
+    padding-top: 5%;
+    font-family:'Lato';
+}
+@media (min-width: 256px) and (max-width: 576px){
+    .panel{
+        padding-left: 5%;
+        padding-right: 5%;
+        min-height: 325px;
+    }
+}/* Declaracion sm */
+
+@media (min-width: 576px) and (max-width: 768px){
+    .panel{
+        padding-left: 5%;
+        padding-right: 5%;
+        min-height: 325px;
+    }
+}/* Declaracion md*/
+
+@media (min-width: 768px) and (max-width: 992px){
+
+}/* Declaracion lg*/
+
+@media (min-width: 992px){
+
+}/* Declaracion xl*/
+
+
+
+
+

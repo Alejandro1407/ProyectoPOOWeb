@@ -58,7 +58,7 @@
 
       <!-- Brand -->
       <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-        <strong>ProyectoPOO</strong>
+        <strong><fmt:message key="navbar.title"/></strong>
       </a>
 
       <!-- Collapse -->
@@ -73,7 +73,12 @@
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home
+            <a class="nav-link" href="index.jsp"><fmt:message key="navbar.index"/>
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+              <li class="nav-item ">
+            <a class="nav-link" href="acercade.jsp"><fmt:message key="navbar.acerca"/>
               <span class="sr-only">(current)</span>
             </a>
           </li>
