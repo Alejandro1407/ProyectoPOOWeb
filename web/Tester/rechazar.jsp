@@ -102,6 +102,7 @@
                     ResultSet tester = proc.executeQuery();
                     if(!tester.next()){
                         out.print("<p class='alert alert-danger'>No hay bitacoras que mostrar</p>");
+                        return;
                     }   
                     tester.beforeFirst();
                     tester.next();

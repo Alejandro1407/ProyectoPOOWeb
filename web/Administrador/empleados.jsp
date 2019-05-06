@@ -27,8 +27,8 @@
          String NombreUser = getCookie("NombreUser", cookies);
          int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
          String NombreDepartamento = getCookie("NombreDepartamento", cookies);
-%>     
 %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>

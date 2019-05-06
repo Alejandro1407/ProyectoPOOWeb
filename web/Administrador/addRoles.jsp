@@ -26,7 +26,7 @@
          String idEmpleado = getCookie("idEmpleado", cookies);
          String NombreUser = getCookie("NombreUser", cookies);
          int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
-         String NombreDepartamento = getCookie("NombreDepartamento", cookies);
+         String NombreDepartamento = getCookie("NombreDepartamento", cookies);    
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -73,6 +73,10 @@
                 width:100%;
                 position:absolute;
             }
+            
+            table{
+                border: 1px solid #009382;
+            }
             </style>
     </head>
   <body class="grey lighten-3">
@@ -86,11 +90,11 @@
         <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>Dashboard
         </a>
-        <a href="departamentos.jsp" class="list-group-item active waves-effect">
+        <a href="departamentos.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-building mr-3"></i>Departamentos</a>
-        <a href="empleados.jsp" class="list-group-item list-group-item-action waves-effect">
+        <a href="empleados.jsp" class="list-group-item list-group-item-action  waves-effect">
           <i class="fas fa-users mr-3"></i>Empleados</a>
-        <a href="roles.jsp" class="list-group-item list-group-item-action waves-effect">
+        <a href="roles.jsp" class="list-group-item active waves-effect">
           <i class="fas fa-briefcase mr-3"></i>Roles</a>
         <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-line mr-3"></i>Reportes</a>
@@ -107,43 +111,34 @@
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid">
         <!-- WorkArea -->
-        <sql:setDataSource var="dbsource" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://localhost/SistemaPOO"
-                           user="root"  password=""/>
- 
-        <sql:query dataSource="${dbsource}" var="result">
-            select * from departamento;
-        </sql:query>
-            <h1 style="text-align: center">Departamentos</h1>
-            <a href='addDepartamento.jsp'><i class="fas fa-plus"></i> Agregar departamento</a>
+        <h1 style="text-align: center">Roles</h1>
+        <h3 style="text-align: center; color:#009382;">Agregar rol</h3>
         <center>
-            <table style="margin-top: 10px;" class="table table-striped table-bordered" id="deptotable" width="100%">
-                <thead class="thead-dark">
+        <form action="addRolesDB.jsp" method="post">
+            <table border="0" cellspacing="2" cellpadding="5">
+                <tbody>
                     <tr>
-                        <th>Codigo</th>
-                        <th>Dpto. Nombre</th>
-                        <th>Dpto. Descripcion</th>
-                        <th colspan="2"><center>Acciones</center></th>
+                        <td><label>Nombre *</label></td>
+                        <td><input type="text" name="txtNombre"/></td>
                     </tr>
-                </thead>
-                <c:forEach var="row" items="${result.rows}">
                     <tr>
-                        <td><c:out value="${row.codigo}"/></td>
-                        <td><c:out value="${row.nombre}"/></td>
-                        <td><c:out value="${row.descripcion}"/></td>
-                        <td><a style='color:#009382; font-weight: bold' href="updDepartamento.jsp?id=<c:out value="${row.id}"/>">Modificar</a></td>
-                        <td><a style='color:#f44336; font-weight: bold' href="delDepartamento.jsp?id=<c:out value="${row.id}"/>">Borrar</a></td>
+                        <td><label>Descripcion *</label></td>
+                        <td><textarea name='txtDescripcion'></textarea></td>
                     </tr>
-                </c:forEach>
+                    <tr>
+                        <td><input type="submit" value="Agregar" /></td>
+                        <td><input type="reset" value="Limpiar"/></td>
+                    </tr>
+                </tbody>
             </table>
-            <font color="red"><c:if test="${not empty param.errMsg}">
-                <c:out value="${param.errMsg}" />
-                </c:if>
-            </font>
-            <font color="green"><c:if test="${not empty param.susMsg}">
-                <c:out value="${param.susMsg}" />
-                </c:if>
-            </font>
+        </form>
+        <a href="departamentos.jsp">Ver todos los roles</a>
+        <font color="red"><c:if test="${not empty param.errMsg}">
+            <c:out value="${param.errMsg}" />
+        </c:if></font>
+        <font color="green"><c:if test="${not empty param.susMsg}">
+            <c:out value="${param.susMsg}" />
+        </c:if></font>
         </center>
         
         
@@ -178,3 +173,4 @@
             } );
     </script>
 </html>
+

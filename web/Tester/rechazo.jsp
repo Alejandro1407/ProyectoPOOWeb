@@ -16,5 +16,4 @@
     proc.setString(2, Observaciones);
     ResultSet rs = proc.executeQuery();
     response.sendRedirect("rechazar.jsp?sucess=Observaciones enviadas con exito");
-    return;
 %>

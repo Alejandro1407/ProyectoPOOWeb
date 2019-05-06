@@ -84,7 +84,7 @@
     <div class="container-fluid">
         <!--WorkArea-->
         <div class="bg-white p-3 ">
-             <h4 class="grey-text pt-3">Purebas realizadas</h4>
+             <h4 class="grey-text pt-3">Aprobar Cambios</h4>
              <% if(request.getParameter("sucess") != null){%>
                 <p class="alert alert-success mb-0"><%=request.getParameter("sucess")%></p>
              <% } %>
@@ -102,6 +102,7 @@
                     ResultSet tester = proc.executeQuery();
                     if(!tester.next()){
                         out.print("<p class='alert alert-danger'>No hay bitacoras que mostrar</p>");
+                        return;
                     }   
                     tester.beforeFirst();
                     tester.next();
@@ -127,6 +128,7 @@
                         <p class="alert alert-danger mb-0"><%= request.getParameter("Error") %></p>
                         <%}%>
                       <button type="submit" class="btn btn-success"><i class="fas fa-check white-text mr-1"></i>Aceptar</button>
+                     
                    </form>
               </div>
            </div>

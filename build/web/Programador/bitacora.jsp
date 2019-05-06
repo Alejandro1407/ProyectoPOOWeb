@@ -99,6 +99,7 @@
                     ResultSet bitacora = proc.executeQuery();
                     if(!bitacora.next()){
                         out.print("<p class='alert alert-danger'>No hay bitacoras que mostrar</p>");
+                        return;
                     }   
                     bitacora.beforeFirst();
                     bitacora.next();

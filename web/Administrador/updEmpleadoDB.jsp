@@ -55,8 +55,6 @@
             <sql:param value="${param.depto}" />
         </sql:update>
             
-            
-        
         <c:redirect url="empleados.jsp" >
             <c:param name="susMsg" value="El empleado se modifico exitosamente" />
         </c:redirect>

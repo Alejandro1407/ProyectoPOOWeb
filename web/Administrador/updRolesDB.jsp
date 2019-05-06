@@ -10,17 +10,17 @@
  
 <html>
     <head>
-        <title>JINSERT Operation</title>
+        <title>Update Operation</title>
     </head>
     <body>
-        <c:if test="${ empty param.txtNombre}">
-            <c:redirect url="addDepartamento.jsp" >
-                <c:param name="errMsg" value="El nombre del departamento no puede quedar vacio" />
+        <c:if test="${ empty param.txtRol}">
+            <c:redirect url="addRoles.jsp" >
+                <c:param name="errMsg" value="El rol no puede quedar vacio" />
             </c:redirect>
  
         </c:if>
         <c:if test="${empty param.txtDescripcion}">
-            <c:redirect url="addDepartamento.jsp" >
+            <c:redirect url="addRoles.jsp" >
                 <c:param name="errMsg" value="La descripcion no puede quedar vacia" />
             </c:redirect>
  
@@ -30,28 +30,25 @@
                            user="root"  password=""/>
  
         <sql:query dataSource="${dbsource}" var="cnt">
-            select * from departamento where nombre = ?
-            <sql:param value="${param.txtNombre}"/>
+            select * from rol where rol = ? and id != ?
+            <sql:param value="${param.txtRol}"/>
+            <sql:param value="${param.txtId}"/>
         </sql:query>
             <c:if test="${cnt.rowCount >= 1}">
-                <c:redirect url="addDepartamento.jsp" >
+                <c:redirect url="updRoles.jsp" >
                     <c:param name="errMsg" value="El departamento ya existe" />
                 </c:redirect>
             </c:if>
-        <sql:update dataSource="${dbsource}" var="result">
-            call insertar_departamento (?,?);
-            <sql:param value="${param.txtNombre}" />
+        <sql:update dataSource="${dbsource}" var="count">
+            call actualizar_rol(?,?,?)
+            <sql:param value="${param.txtId}" />
+            <sql:param value="${param.txtRol}" />
             <sql:param value="${param.txtDescripcion}" />
         </sql:update>
-        <c:if test="${not empty result}">
-            <font size="5" color='green'> 
-                <c:out value="${result}"/> 
-            </font>
- 
-            <c:redirect url="addDepartamento.jsp" >
-                <c:param name="susMsg" value="El departamento se ingreso exitosamente" />
-            </c:redirect>
-        </c:if>
+        
+        <c:redirect url="roles.jsp" >
+            <c:param name="susMsg" value="El rol se modifico exitosamente" />
+        </c:redirect>
  
  
     </body>
