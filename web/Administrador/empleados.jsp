@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%!
     public String getCookie(String cookieName, Cookie[] cookies){
         for(int i = 0;i < cookies.length;i++){
@@ -33,6 +34,7 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -85,20 +87,20 @@
       </a>
       <div class="list-group list-group-flush">
         <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-pie mr-3"></i>Dashboard
+          <i class="fas fa-chart-pie mr-3"></i><fmt:message key="menu.dash" />
         </a>
         <a href="departamentos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-building mr-3"></i>Departamentos</a>
+          <i class="fas fa-building mr-3"></i><fmt:message key="menu.departamentos" /></a>
         <a href="empleados.jsp" class="list-group-item active  waves-effect">
-          <i class="fas fa-users mr-3"></i>Empleados</a>
+          <i class="fas fa-users mr-3"></i><fmt:message key="menu.empleados" /></a>
         <a href="roles.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-briefcase mr-3"></i>Roles</a>
+          <i class="fas fa-briefcase mr-3"></i><fmt:message key="menu.roles" /></a>
         <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-line mr-3"></i>Reportes</a>
+          <i class="fas fa-chart-line mr-3"></i><fmt:message key="menu.reportes" /></a>
           <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
+          <i class="fas fa-lock mr-3"></i><fmt:message key="menu.cambiar" /></a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
-          <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
+          <i class="fas fa-sign-out-alt mr-3"></i><fmt:message key="menu.cerrar" /></a>
       </div>
 
     </div>  
@@ -115,19 +117,22 @@
         <sql:query dataSource="${dbsource}" var="result">
             call mostrar_empleados;
         </sql:query>
-            <h1 style="text-align: center">Empleados</h1>
-            <a href='addEmpleado.jsp'><i class="fas fa-plus"></i> Agregar empleado</a>
+            <h1 style="text-align: center"><fmt:message key="lbl.emptitle" /></h1>
+            <c:if test="${not empty param.susMsg}">
+            <p class="alert alert-warning">   <c:out value="${param.susMsg}" /></p>
+        </c:if>
+            <a href='addEmpleado.jsp'><i class="fas fa-plus"></i> <fmt:message key="btn.agregar"/></a>
         <center>
             <table style="margin-top: 10px;" class="table table-striped table-bordered" id="deptotable" width="100%">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Id Empleado</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Departamento</th>
-                        <th colspan="2"><center>Acciones</center></th>
+                        <th>#</th>
+                        <th><fmt:message key="table.nombre"/></th>
+                        <th><fmt:message key="table.apellidos"/></th>
+                        <th><fmt:message key="table.correo"/></th>
+                        <th><fmt:message key="table.rol"/></th>
+                        <th><fmt:message key="table.departamento"/></th>
+                        <th colspan="2"><center><fmt:message key="table.acciones"/></center></th>
                     </tr>
                 </thead>
                 <c:forEach var="row" items="${result.rowsByIndex}">
@@ -139,17 +144,13 @@
                         <td><c:out value="${row[3]}"/></td>
                         <td><c:out value="${row[5]}"/></td>
                         <td><c:out value="${row[7]}"/></td>
-                        <td><a style='color:#009382; font-weight: bold' href="updEmpleado.jsp?id=<c:out value="${row[0]}"/>">Modificar</a></td>
-                        <td><a style='color:#f44336; font-weight: bold' href="delEmpleado.jsp?id=<c:out value="${row[0]}"/>">Borrar</a></td>
+                        <td><a style='color:#009382; font-weight: bold' href="updEmpleado.jsp?id=<c:out value="${row[0]}"/>"><fmt:message key="btn.editar"/></a></td>
+                        <td><a style='color:#f44336; font-weight: bold' href="delEmpleado.jsp?id=<c:out value="${row[0]}"/>"><fmt:message key="btn.eliminar"/></a></td>
                     </tr>
                 </c:forEach>
             </table>
             <font color="red"><c:if test="${not empty param.errMsg}">
                 <c:out value="${param.errMsg}" />
-                </c:if>
-            </font>
-            <font color="green"><c:if test="${not empty param.susMsg}">
-                <c:out value="${param.susMsg}" />
                 </c:if>
             </font>
         </center>

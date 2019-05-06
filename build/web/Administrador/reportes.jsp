@@ -1,4 +1,5 @@
- <%@page import="java.sql.ResultSet"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.CallableStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="Datos.Conexion"%>
@@ -30,15 +31,7 @@
          String idEmpleado = getCookie("idEmpleado", cookies);
          String NombreUser = getCookie("NombreUser", cookies);
          int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
-         String NombreDepartamento = getCookie("NombreDepartamento", cookies);
-         ResultSet Data;
-         Connection conn = Conexion.Conectarse();
-            if(conn == null){
-               throw new Exception("No se pudo Conectar");
-            }
-            CallableStatement proc = conn.prepareCall("{call reporte_todo (?)}");
-            proc.setInt(1, idDepartamento);
-            Data = proc.executeQuery();   
+         String NombreDepartamento = getCookie("NombreDepartamento", cookies);  
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -76,22 +69,22 @@
       <a class="logo-wrapper waves-effect">
         <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
       </a>
-      <div class="list-group list-group-flush">
-        <a href="index.jsp" class="list-group-item  waves-effect">
-          <i class="fas fa-chart-pie mr-3"></i>Dashboard
+       <div class="list-group list-group-flush">
+        <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-chart-pie mr-3"></i><fmt:message key="menu.dash" />
         </a>
-        <a href="solicitudes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-file-alt mr-3"></i>Mostrar Solicitudes</a>
-        <a href="casos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-suitcase mr-3"></i>Crear solicitud</a>
-           <a href="mostrarcasos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-suitcase mr-3"></i>Mostrar Casos</a>
+        <a href="departamentos.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-building mr-3"></i><fmt:message key="menu.departamentos" /></a>
+        <a href="empleados.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-users mr-3"></i><fmt:message key="menu.empleados" /></a>
+        <a href="roles.jsp" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-briefcase mr-3"></i><fmt:message key="menu.roles" /></a>
         <a href="reportes.jsp" class="list-group-item active waves-effect">
-          <i class="fas fa-chart-line mr-3"></i>Reportes</a>
+          <i class="fas fa-chart-line mr-3"></i><fmt:message key="menu.reportes" /></a>
           <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
+          <i class="fas fa-lock mr-3"></i><fmt:message key="menu.cambiar" /></a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
-          <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
+          <i class="fas fa-sign-out-alt mr-3"></i><fmt:message key="menu.cerrar" /></a>
       </div>
 
     </div>
@@ -105,8 +98,7 @@
                            user="root"  password=""/>
  
         <sql:query dataSource="${dbsource}" var="result">
-            call reporte_dep(?)
-            <sql:param value="<%=idDepartamento%>" />
+            call reporte_todo()
         </sql:query>
             <center> <h1> Reportes</h1>
             <div class="container-fluid">
