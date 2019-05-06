@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%!
     public String getCookie(String cookieName, Cookie[] cookies){
         for(int i = 0;i < cookies.length;i++){
@@ -86,20 +87,20 @@
       <a class="logo-wrapper waves-effect">
         <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
       </a>
-      <div class="list-group list-group-flush">
+    <div class="list-group list-group-flush">
         <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-pie mr-3"></i>Dashboard
+          <i class="fas fa-chart-pie mr-3"></i><fmt:message key="menu.dash" />
         </a>
         <a href="departamentos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-building mr-3"></i>Departamentos</a>
+          <i class="fas fa-building mr-3"></i><fmt:message key="menu.departamentos" /></a>
         <a href="empleados.jsp" class="list-group-item list-group-item-action  waves-effect">
-          <i class="fas fa-users mr-3"></i>Empleados</a>
+          <i class="fas fa-users mr-3"></i><fmt:message key="menu.empleados" /></a>
         <a href="roles.jsp" class="list-group-item active waves-effect">
-          <i class="fas fa-briefcase mr-3"></i>Roles</a>
+          <i class="fas fa-briefcase mr-3"></i><fmt:message key="menu.roles" /></a>
         <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-line mr-3"></i>Reportes</a>
-          <a href="cambiar.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
+          <i class="fas fa-chart-line mr-3"></i><fmt:message key="menu.reportes" /></a>
+          <a href="#" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-lock mr-3"></i><fmt:message key="menu.cambiar" /></a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
           <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
       </div>
@@ -132,7 +133,7 @@
                 </tbody>
             </table>
         </form>
-        <a href="departamentos.jsp">Ver todos los roles</a>
+        <a href="roles.jsp">Ver todos los roles</a>
         <font color="red"><c:if test="${not empty param.errMsg}">
             <c:out value="${param.errMsg}" />
         </c:if></font>

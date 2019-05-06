@@ -14,19 +14,19 @@
     </head>
     <body>
         <c:if test="${ empty param.txtNombre}">
-            <c:redirect url="addEmpleado.jsp" >
+            <c:redirect url="updEmpleado.jsp" >
                 <c:param name="errMsg" value="El nombre del empleado no puede quedar vacio" />
             </c:redirect>
  
         </c:if>
         <c:if test="${empty param.txtApellido}">
-            <c:redirect url="addEmpleado.jsp" >
+            <c:redirect url="updEmpleado.jsp" >
                 <c:param name="errMsg" value="El apellido no puede quedar vacio" />
             </c:redirect>
  
         </c:if>
         <c:if test="${empty param.txtEmail}">
-            <c:redirect url="addEmpleado.jsp" >
+            <c:redirect url="updEmpleado.jsp" >
                 <c:param name="errMsg" value="El email no puede quedar vacio" />
             </c:redirect>
         </c:if>

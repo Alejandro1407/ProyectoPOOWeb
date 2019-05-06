@@ -1,0 +1,6 @@
+<web-app>
+ <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    <param-value>AplicationResource</param-value>
+ </context-param>
+</web-app>

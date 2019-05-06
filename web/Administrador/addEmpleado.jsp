@@ -1,4 +1,16 @@
- <%
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%!
+    public String getCookie(String cookieName, Cookie[] cookies){
+        for(int i = 0;i < cookies.length;i++){
+            Cookie cookie = cookies[i];
+                if(cookie.getName().equals(cookieName)){
+                    return cookie.getValue();
+                }
+        }
+        return "Null";
+    }
+%>
+<%
      //Para evitar el acceso no authorizado
      
      HttpSession sesion = request.getSession();
@@ -12,11 +24,12 @@
         
          cookies = request.getCookies();
          
-         String idEmpleado = (String) cookies[1].getValue();
-         String NombreUser = (String) cookies[2].getValue();
-         int idDepartamento = Integer.parseInt(cookies[3].getValue());
-         String NombreDepartamento = (String) cookies[4].getValue();     
+         String idEmpleado = getCookie("idEmpleado", cookies);
+         String NombreUser = getCookie("NombreUser", cookies);
+         int idDepartamento = Integer.parseInt(getCookie("idDepartamento", cookies));
+         String NombreDepartamento = getCookie("NombreDepartamento", cookies);
 %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -77,18 +90,18 @@
       </a>
       <div class="list-group list-group-flush">
         <a href="index.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-pie mr-3"></i>Dashboard
+          <i class="fas fa-chart-pie mr-3"></i><fmt:message key="menu.dash" />
         </a>
         <a href="departamentos.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-building mr-3"></i>Departamentos</a>
+          <i class="fas fa-building mr-3"></i><fmt:message key="menu.departamentos" /></a>
         <a href="empleados.jsp" class="list-group-item active  waves-effect">
-          <i class="fas fa-users mr-3"></i>Empleados</a>
+          <i class="fas fa-users mr-3"></i><fmt:message key="menu.empleados" /></a>
         <a href="roles.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-briefcase mr-3"></i>Roles</a>
+          <i class="fas fa-briefcase mr-3"></i><fmt:message key="menu.roles" /></a>
         <a href="reportes.jsp" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-line mr-3"></i>Reportes</a>
+          <i class="fas fa-chart-line mr-3"></i><fmt:message key="menu.reportes" /></a>
           <a href="#" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-lock mr-3"></i>Cambiar Contraseña</a>
+          <i class="fas fa-lock mr-3"></i><fmt:message key="menu.cambiar" /></a>
            <a href="../Servicios/cerrarsesion.jsp" class="list-group-item red-text list-group-item-action waves-effect">
           <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesion</a>
       </div>
@@ -111,28 +124,30 @@
         </sql:query>
         
         <!-- WorkArea -->
-        <h1 style="text-align: center">Empleados</h1>
-        <h3 style="text-align: center; color:#009382;">Agregar empleado</h3>
+        <div class="bg-white p-5 w-100">
+        <h1 style="text-align: center"><fmt:message key="lbl.emptitle"/></h1>
+        <h3 style="text-align: center; color:#009382;"><fmt:message key="btn.agregar"/></h3>
         <center>
+       
         <form action="addEmpleadoDB.jsp" method="post">
             <table border="0" cellspacing="2" cellpadding="5">
                 <tbody>
                     <tr>
-                        <td><label>Nombre *</label></td>
-                        <td><input type="text" name="txtNombre"/></td>
+                        <td><label><fmt:message key="form.nombre" /> <span class="red-text">*</span></label></td>
+                        <td><input type="text" class="form-control" name="txtNombre"/></td>
                     </tr>
                     <tr>
-                        <td><label>Apellido *</label></td>
-                        <td><input type="text" name="txtApellido"/></td>
+                        <td><label><fmt:message key="form.apellidos" /> <span class="red-text">*</span></label></td>
+                        <td><input type="text" class="form-control" name="txtApellido"/></td>
                     </tr>
                     <tr>
-                        <td><label>Email *</label></td>
-                        <td><input type="email" name="txtEmail"/></td>
+                        <td><label><fmt:message key="form.correo" /> <span class="red-text">*</span></label></td>
+                        <td><input type="email" class="form-control" name="txtEmail"/></td>
                     </tr>
                     <tr>
-                        <td><label>Rol *</label></td>
+                        <td><label><fmt:message key="form.rol" /> <span class="red-text">*</span></label></td>
                         <td>
-                            <select name="rol">
+                            <select name="rol" class="custom-control custom-select">
                                 <c:forEach var="data" items="${roles.rows}">
                                     <option value="${data.id}">${data.rol}</option>
                                 </c:forEach>
@@ -141,9 +156,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label>Departamento *</label></td>
+                        <td><label><fmt:message key="form.departamento" /> <span class="red-text">*</span></label></td>
                         <td>
-                            <select name="depto">
+                            <select name="depto" class="custom-control custom-select">
                                 <c:forEach var="data" items="${deptos.rows}">
                                     <option value="${data.id}">${data.nombre}</option>
                                 </c:forEach>
@@ -151,12 +166,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Agregar" /></td>
-                        <td><input type="reset" value="Limpiar"/></td>
+                        <td><input class="btn btn-success" type="submit" value="Agregar" /></td>
+                        <td><input class="btn btn-warning" type="reset" value="Limpiar"/></td>
                     </tr>
                 </tbody>
             </table>
         </form>
+                      
         <a href="empleados.jsp">Ver todos los empleados</a>
         <font color="red"><c:if test="${not empty param.errMsg}">
             <c:out value="${param.errMsg}" />
@@ -166,7 +182,7 @@
         </c:if></font>
         </center>
         
-        
+          </div>
         <!-- FinWorkArea-->
     </div>
   </main>

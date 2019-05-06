@@ -1,7 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
-
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +58,7 @@
 
       <!-- Brand -->
       <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-        <strong>ProyectoPOO</strong>
+        <strong><fmt:message key="navbar.title"/></strong>
       </a>
 
       <!-- Collapse -->
@@ -75,7 +73,12 @@
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home
+            <a class="nav-link" href="index.jsp"><fmt:message key="navbar.index"/>
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+              <li class="nav-item ">
+            <a class="nav-link" href="acercade.jsp"><fmt:message key="navbar.acerca"/>
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -116,16 +119,16 @@
           <!--Grid column-->
           <div class="col-md-6 mb-4 white-text text-center text-md-left">
 
-            <h1 class="display-4 font-weight-bold">Sistema de Administracion Web</h1>
+              <h1 class="display-4 font-weight-bold"><fmt:message key="lbl.title"/></h1>
 
             <hr class="hr-light">
 
             <p>
-              <strong>Sistema de gestion de casos y solicitudes</strong>
+              <strong><fmt:message key="lbl.subtitle"/></strong>
             </p>
 
             <p class="mb-4 d-none d-md-block">
-              <strong>Sistema desarrollado para complementar el desarrollo de la aplicacion de escritorio para la materia Programacion Orientada a Objetos</strong>
+              <strong><fmt:message key="lbl.info"/></strong>
             </p>
 
           </div>
@@ -144,14 +147,14 @@
                 <form action="Servicios/iniciarsesion.jsp" method="POST">
                   <!-- Heading -->
                   <h3 class="dark-grey-text text-center">
-                    <strong>Iniciar Sesion</strong>
+                    <strong><fmt:message key="lbl.login"/></strong>
                   </h3>
                   <hr>
 
           
                   <div class="md-form">
                     <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="text" id="form2" class="form-control" name="Email" placeholder="alguien@example.com">
+                    <input type="text" id="form2" class="form-control" name="Email" placeholder="<fmt:message key="lbl.placeholder"/>"/>
                    
                   </div>
 
@@ -168,7 +171,7 @@
                       <%
                            }
                       %>
-                    <button class="btn btn-indigo">Iniciar Sesion</button>
+                    <button class="btn btn-indigo"><fmt:message key="lbl.login"/></button>
                     <hr>
                   </div>
 
